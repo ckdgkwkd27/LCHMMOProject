@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="LCHGameServer.cpp" />
+    <ClCompile Include="..\protobuf-3.18.x\bin\protocol.pb.cc">
+      <Filter>Protobuf</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>PCH</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientPacketHandler.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientSession.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Zone.cpp">
+      <Filter>Zone</Filter>
+    </ClCompile>
+    <ClCompile Include="ZoneManager.cpp">
+      <Filter>Zone</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor.cpp">
+      <Filter>Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Actor\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerManager.cpp">
+      <Filter>Actor\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectPool.cpp">
+      <Filter>Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Zone</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Actor\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="MessageQueue.cpp">
+      <Filter>Zone</Filter>
+    </ClCompile>
+    <ClCompile Include="Viewport.cpp">
+      <Filter>Zone</Filter>
+    </ClCompile>
+    <ClCompile Include="Section.cpp">
+      <Filter>Zone</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerDBMessage.cpp">
+      <Filter>DB</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\protobuf-3.18.x\bin\protocol.pb.h">
+      <Filter>Protobuf</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>PCH</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientSession.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientPacketHandler.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="ZoneManager.h">
+      <Filter>Zone</Filter>
+    </ClInclude>
+    <ClInclude Include="Zone.h">
+      <Filter>Zone</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor.h">
+      <Filter>Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerManager.h">
+      <Filter>Actor\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Actor\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectPool.h">
+      <Filter>Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Zone</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Actor\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="MessageQueue.h">
+      <Filter>Zone</Filter>
+    </ClInclude>
+    <ClInclude Include="Viewport.h">
+      <Filter>Zone</Filter>
+    </ClInclude>
+    <ClInclude Include="Section.h">
+      <Filter>Zone</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerDBMessage.h">
+      <Filter>DB</Filter>
+    </ClInclude>
+    <ClInclude Include="SqlStatement.h">
+      <Filter>DB</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Protobuf">
+      <UniqueIdentifier>{9b369edb-e76f-4222-bc65-1bee95083538}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PCH">
+      <UniqueIdentifier>{65dc2819-dcaf-4a00-8d30-a4ec890d73ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network">
+      <UniqueIdentifier>{8d90beed-e8b8-494b-9635-3a7a05902e10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Zone">
+      <UniqueIdentifier>{6932aa7a-13e9-4dcd-acd1-fe447f9af11f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor">
+      <UniqueIdentifier>{2e9fa985-ce80-4815-b515-2af1f91f4d2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Player">
+      <UniqueIdentifier>{ad65f75d-f879-4bad-89b5-d207f4bcd86b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Monster">
+      <UniqueIdentifier>{d1291f44-e1c8-4265-936a-894b3ce2563b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DB">
+      <UniqueIdentifier>{54fe447c-a878-4c02-ba5b-6e45b1c40bd9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\protobuf-3.18.x\bin\protocol.proto">
+      <Filter>Protobuf</Filter>
+    </None>
+    <None Include="GameDB.sql">
+      <Filter>DB</Filter>
+    </None>
+  </ItemGroup>
+</Project>

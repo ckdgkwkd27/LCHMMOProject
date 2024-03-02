@@ -1,0 +1,124 @@
+syntax = "proto3";
+package protocol;
+
+message ObjectInfo {
+  uint32 ObjectType = 1;
+  uint32 actorId = 2;
+  string name = 3;
+  PositionInfo posInfo = 4;
+  StatInfo statInfo = 5;
+}
+
+message PositionInfo {
+  uint32 state = 1;
+  uint32 moveDir = 2;
+  int32 posX = 3;
+  int32 posY = 4;
+}
+
+message StatInfo {
+  uint32 level = 1;
+  uint32 hp = 2;
+  uint32 maxHp = 3;
+  int32 attack = 4;
+  float speed = 5;
+  uint32 totalExp = 6;
+}
+
+message RequestJoin
+{
+	string id = 1;
+	string password = 2;
+}
+
+message ReturnJoin
+{
+	uint32 result = 1;
+}
+
+message RequestLogin
+{
+	string id = 1;
+	string password = 2;
+}
+
+message ReturnLogin
+{
+	uint32 result = 1;
+	uint32 playerId = 2;
+}
+
+message RequestEnterGame
+{
+	uint32 playerId = 1;
+	uint32 zoneId = 2;
+}
+
+message ReturnEnterGame
+{
+	ObjectInfo myPlayer = 1;
+	uint32 zoneId = 2;
+}
+
+message NotifySpawn
+{
+	repeated ObjectInfo objects = 1;
+}
+
+message RequestMove
+{
+	PositionInfo posInfo = 1;
+}
+
+message ReturnMove
+{
+	uint32 actorId = 1;
+	PositionInfo posInfo = 2;
+}
+
+message NotifySetHp
+{
+	uint32 actorId = 1;
+	uint32 hp = 2;
+}
+
+message RequestSkill
+{
+	uint32 skillId = 1;
+	uint32 targetActorId = 2;
+}
+
+message ReturnSkill
+{
+	uint32 actorId = 1;
+	uint32 skillId = 2;
+}
+
+message NotifyDie
+{
+	uint32 actorId = 1;
+	uint32 attackerId = 2;
+}
+
+message NotifyDespawn
+{
+	repeated uint32 actorIds = 1;
+}
+
+message RequestTeleport
+{
+	uint32 actorId = 1;
+	uint32 zoneId = 2;
+	PositionInfo posInfo = 3; 
+}
+
+message ReturnTeleport
+{
+	uint32 actorId = 1;
+	uint32 zoneId = 2;
+}
+
+message RequestViewportUpdate
+{
+	uint32 playerId = 1;
+}
