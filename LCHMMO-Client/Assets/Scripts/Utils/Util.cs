@@ -99,5 +99,27 @@ public class Util
 
         return null;
     }
+
+    public static Vector3 GetVecFromDir(MoveDirType dir)
+    {
+        Vector3 vec = new Vector3();
+        switch(dir)
+        {
+            case MoveDirType.UP:
+                vec.Set(0, 1, 0);
+                break;
+            case MoveDirType.DOWN:
+                vec.Set(0, -1, 0);
+                break;
+            case MoveDirType.RIGHT:
+                vec.Set(1, 0, 0);
+                break;
+            case MoveDirType.LEFT:
+                vec.Set(-1, 0, 0);
+                break;
+        }
+
+        return vec;
+    }
 }
 

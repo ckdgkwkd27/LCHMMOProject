@@ -3,9 +3,12 @@ using Protocol;
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 class PacketHandler
 {
+    public static Dictionary<uint, PlayerController> Players = new Dictionary<uint, PlayerController>();
+
     public static void HandleReturnJoin(ServerSession session, IMessage packet)
     {
         ReturnJoin returnJoin = packet as ReturnJoin;
@@ -74,7 +77,16 @@ class PacketHandler
             return;
 
         bc.PosInfo = movePacket.PosInfo;
-        Debug.Log("END: 이동 처리 완료");
+
+        //do if MyPlayer
+        {
+            PlayerController pc = bc as PlayerController;
+            if (pc != null && pc.IsMyPlayer() == false)
+            {
+                var info = movePacket.PosInfo;
+                pc.SetDestInfo(info);
+            }
+        }
     }
 
     public static void HandleNotifySetHp(ServerSession session, IMessage message)

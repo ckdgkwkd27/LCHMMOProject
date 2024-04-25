@@ -258,7 +258,7 @@ public class BaseController : MonoBehaviour
         Init();
     }
 
-    void Update()
+    protected virtual void Update()
     {
         UpdateController();
     }

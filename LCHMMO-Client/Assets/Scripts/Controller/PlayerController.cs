@@ -8,9 +8,43 @@ public class PlayerController : CreatureController
     protected bool _rangedSkill = false;
     public int _playerID;
 
+    protected Protocol.PositionInfo destination = new Protocol.PositionInfo();
+
     protected override void Init()
     {
         base.Init();
+
+        Vector3 pos = transform.position;
+        destination.PosX = (int)pos.x;
+        destination.PosY = (int)pos.y;
+        destination.State = (uint)CreatureState.IDLE;
+        PosInfo.State = (uint)CreatureState.IDLE;
+    }
+
+    public bool IsMyPlayer()
+    {
+        return this is MyPlayerController;
+    }
+
+    public void SetDestInfo(Protocol.PositionInfo pos)
+    {
+        destination = pos;
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+
+        //destination.PosX = PosInfo.PosX;
+        //destination.PosY = PosInfo.PosY;
+        //destination.MoveDir = PosInfo.MoveDir;
+
+        if (State == CreatureState.MOVING && IsMyPlayer() == false)
+        {
+            Vector3 direction = Util.GetVecFromDir((MoveDirType)destination.MoveDir);
+            transform.position += direction * Stat.Speed * Time.deltaTime;
+            Debug.Log($"position (x, y)=({transform.position.x}, {transform.position.y})");
+        }
     }
 
     protected override void UpdateAnimation()
@@ -129,11 +163,6 @@ public class PlayerController : CreatureController
         }
     }
 
-    protected virtual void CheckUpdatedFlag()
-    {
-
-    }
-
     IEnumerator CoStartMelee()
     {
         _rangedSkill = false;
@@ -141,7 +170,6 @@ public class PlayerController : CreatureController
         yield return new WaitForSeconds(0.5f);
         State = CreatureState.IDLE;
         _coSkill = null;
-        CheckUpdatedFlag();
     }
 
     IEnumerator CoStartShootArrow()
@@ -151,7 +179,6 @@ public class PlayerController : CreatureController
         yield return new WaitForSeconds(0.3f);
         State = CreatureState.IDLE;
         _coSkill = null;
-        CheckUpdatedFlag();
     }
 
     public override void OnDamaged()
