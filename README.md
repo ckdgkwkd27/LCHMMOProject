@@ -1,3 +1,3 @@
 https://www.youtube.com/watch?v=Guqn8-Qrqls
 </br></br>
-[게임서버 포트폴리오.pdf](https://github.com/ckdgkwkd27/LCHMMOProject/files/15377737/default.pdf)
+24.08.22 추가로 NPC서버를 분산처리 시켰습니다
