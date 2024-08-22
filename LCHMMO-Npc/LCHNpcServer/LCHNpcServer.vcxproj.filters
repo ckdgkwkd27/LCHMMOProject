@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="LCHNpcServer.cpp" />
+    <ClCompile Include="pch.cpp">
+      <Filter>PCH</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldSession.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldPacketHandler.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\LCHMMO-Server\protobuf-3.18.x\bin\protocol.pb.cc">
+      <Filter>Protobuf</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Npc</Filter>
+    </ClCompile>
+    <ClCompile Include="NpcActor.cpp">
+      <Filter>Npc</Filter>
+    </ClCompile>
+    <ClCompile Include="ActorManager.cpp">
+      <Filter>Npc</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp" />
+    <ClCompile Include="MapManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="PCH">
+      <UniqueIdentifier>{a22200a8-899d-40e9-bc49-db7df6756428}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network">
+      <UniqueIdentifier>{8d853127-4f0e-4709-9f52-65105b494566}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Protobuf">
+      <UniqueIdentifier>{13a8469b-cc43-43bb-969f-8ae0e94cb721}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Npc">
+      <UniqueIdentifier>{0a03bc38-8069-41dc-be02-24e6cd55e71c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h">
+      <Filter>PCH</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldSession.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldPacketHandler.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\LCHMMO-Server\protobuf-3.18.x\bin\protocol.pb.h">
+      <Filter>Protobuf</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Npc</Filter>
+    </ClInclude>
+    <ClInclude Include="NpcActor.h">
+      <Filter>Npc</Filter>
+    </ClInclude>
+    <ClInclude Include="ActorManager.h">
+      <Filter>Npc</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h" />
+    <ClInclude Include="MapManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\LCHMMO-Server\protobuf-3.18.x\bin\protocol.proto">
+      <Filter>Protobuf</Filter>
+    </None>
+  </ItemGroup>
+</Project>
