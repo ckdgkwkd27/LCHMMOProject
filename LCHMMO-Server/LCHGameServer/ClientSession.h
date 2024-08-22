@@ -2,12 +2,21 @@
 #include "Session.h"
 #include "SessionManager.h"
 
-enum SessionState : uint8
+enum class SessionState : uint8
 {
 	NONE,
 	CONNECTED,
 	LOGIN,
 	ENTER_GAME,
+
+	END
+};
+
+enum class SessionServiceType : uint8
+{
+	NONE,
+	USER,
+	NPC,
 
 	END
 };
@@ -23,6 +32,7 @@ public:
 
 public:
 	std::shared_ptr<Player> currentPlayer;
+	SessionServiceType ServiceType;
 };
 
 using ClientSessionPtr = std::shared_ptr<ClientSession>;

@@ -33,6 +33,7 @@ private:
 	int64 nextChaseTimeStamp = 0;
 	int64 nextSkillTimeStamp = 0;
 
+public:
 	uint32 RoamRadius;
 };
 

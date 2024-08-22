@@ -82,6 +82,24 @@ void ZoneManager::TickUpdate()
 {
 	CurrTimeStamp = TimeUtil::GetCurrTimeStamp();
 
+	protocol::NotifyWorldTick tickPacket;
+	tickPacket.set_currtimestamp(static_cast<uint32>(CurrTimeStamp.count()));
+	auto _sendBuffer = ClientPacketHandler::MakeSendBufferPtr(tickPacket);
+
+	if(NpcTickTime < CurrTimeStamp.count())
+	{
+		for (auto _session : GSessionManager.activeSessions)
+		{
+			ClientSessionPtr clientSession = std::static_pointer_cast<ClientSession>(_session);
+			if (clientSession->ServiceType == SessionServiceType::NPC)
+			{
+				_session->PostSend(_sendBuffer);
+			}
+		}
+
+		NpcTickTime = CurrTimeStamp.count() + 100;
+	}
+
 	//존 업데이트
 	if (CurrTimeStamp > NextTimeStampForZoneUpdate)
 	{
@@ -94,23 +112,25 @@ void ZoneManager::TickUpdate()
 
 void ZoneManager::SpawnNpc()
 {
-	RecursiveLockGuard guard(zoneLock);
+	//#ATTENTION: Replaced by NpcSpawn Packet
+	// 
+	//RecursiveLockGuard guard(zoneLock);
 
-	//Spawn Monster or Npc
-	for (ZonePtr _zone : zoneVector)
-	{
-		if (_zone->zoneID == 1)
-		{
-			for (uint32 i = 0; i < 100; i++)
-			{
-				MonsterPtr monster = std::make_shared<Monster>();
-				monster->zoneID = _zone->zoneID;
-				monster->ActorInfo.mutable_posinfo()->set_posx(RandomUtil::GetRandomRangeInt(_zone->xMin, _zone->xMax) / 2);
-				monster->ActorInfo.mutable_posinfo()->set_posy(RandomUtil::GetRandomRangeInt(_zone->yMin, _zone->yMax) / 2);
-				_zone->RegisterActor(monster);
-			}
+	////Spawn Monster or Npc
+	//for (ZonePtr _zone : zoneVector)
+	//{
+	//	if (_zone->zoneID == 1)
+	//	{
+	//		for (uint32 i = 0; i < 10; i++)
+	//		{
+	//			MonsterPtr monster = std::make_shared<Monster>();
+	//			monster->zoneID = _zone->zoneID;
+	//			monster->ActorInfo.mutable_posinfo()->set_posx(RandomUtil::GetRandomRangeInt(_zone->xMin, _zone->xMax) / 2);
+	//			monster->ActorInfo.mutable_posinfo()->set_posy(RandomUtil::GetRandomRangeInt(_zone->yMin, _zone->yMax) / 2);
+	//			_zone->RegisterActor(monster);
+	//		}
 
-			std::cout << "[INFO] ZoneID=" << _zone->zoneID << " Monster Spawned!" << std::endl;
-		}
-	}
+	//		std::cout << "[INFO] ZoneID=" << _zone->zoneID << " Monster Spawned!" << std::endl;
+	//	}
+	//}
 }

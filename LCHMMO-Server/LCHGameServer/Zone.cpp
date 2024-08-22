@@ -220,29 +220,6 @@ bool Zone::Update()
 	return true;
 }
 
-bool Zone::PlayerViewportUpdate()
-{
-	for (auto _actor : this->actorVector)
-	{
-		if (_actor->ActorInfo.objecttype() == (uint32)ObjectType::PLAYER && _actor != nullptr)
-		{
-			PlayerPtr player = std::dynamic_pointer_cast<Player>(_actor);
-
-			TimeStampType currTimeStamp = TimeUtil::GetCurrTimeStamp();
-			if (currTimeStamp > player->LastViewportUpdateTimeStamp + 200ms)
-			{
-				protocol::RequestViewportUpdate ViewPkt;
-				ViewPkt.set_playerid(player->playerId);
-				auto viewSendBuffer = ClientPacketHandler::MakeSendBufferPtr(ViewPkt);
-				player->ownerSession->PostLoopback(viewSendBuffer);
-			}
-			//player->viewport->Update();
-		}
-	}
-
-	return true;
-}
-
 void Zone::EnterGame(PlayerPtr player, ZoneIDType zoneId)
 {
 	if (zoneId < 0 || zoneId >= ZoneIDEnum::CNT)
@@ -299,40 +276,59 @@ void Zone::LeaveGame(ActorIDType _actorId)
 	}
 }
 
-void Zone::HandleMove(PlayerPtr player, protocol::RequestMove movePacket)
+void Zone::HandleMove(ActorPtr actor, protocol::RequestMove movePacket)
 {
-	if (player == nullptr)
+	if (actor == nullptr)
 		return;
 
 	//Verify
 	protocol::PositionInfo movePosInfo = movePacket.posinfo();
-	if (movePosInfo.posx() != player->ActorInfo.posinfo().posx() || movePosInfo.posy() != player->ActorInfo.posinfo().posy())
+	if (movePosInfo.posx() != actor->ActorInfo.posinfo().posx() || movePosInfo.posy() != actor->ActorInfo.posinfo().posy())
 	{
 		if (zoneMap.CanGo(Vector2Int(movePosInfo.posx(), movePosInfo.posy())) == false)
 			return;
 	}
 
-	player->ActorInfo.mutable_posinfo()->set_state(movePosInfo.state());
-	player->ActorInfo.mutable_posinfo()->set_movedir(movePosInfo.movedir());
+	actor->ActorInfo.mutable_posinfo()->set_state(movePosInfo.state());
+	actor->ActorInfo.mutable_posinfo()->set_movedir(movePosInfo.movedir());
 	Vector2Int moveCellPos = Vector2Int(movePosInfo.posx(), movePosInfo.posy());
-	zoneMap.ApplyMove(player, moveCellPos);
+	zoneMap.ApplyMove(actor, moveCellPos);
 
 	//BroadCast
 	protocol::ReturnMove resMovePacket;
-	resMovePacket.set_actorid(player->ActorInfo.actorid());
+	resMovePacket.set_actorid(actor->ActorInfo.actorid());
 	resMovePacket.mutable_posinfo()->CopyFrom(movePosInfo);
 	auto _sendBuffer = ClientPacketHandler::MakeSendBufferPtr(resMovePacket);
-	BroadCast(player, _sendBuffer);
+	BroadCast(actor, _sendBuffer);
 
 	SectionPtr section = GetSection(moveCellPos);
 	section->PlayerViewportUpdate();
 
-	//std::cout << "[info] returnmove packet send, actorid=" << resMovePacket.actorid() << std::endl;
+	//npc¿¡°Ô Send
+	if (actor->ActorInfo.objecttype() == (uint32)ObjectType::PLAYER && actor->zoneID == 1)
+	{
+		this->messageQueue.Push([actor, movePosInfo]
+			{
+				for (auto _session : GSessionManager.activeSessions)
+				{
+					ClientSessionPtr clientSession = std::static_pointer_cast<ClientSession>(_session);
+					if (clientSession->ServiceType == SessionServiceType::NPC)
+					{
+						protocol::ReturnMove movePacket;
+						movePacket.set_actorid(actor->ActorInfo.actorid());
+						movePacket.mutable_posinfo()->CopyFrom(movePosInfo);
+						auto _sendBuffer = ClientPacketHandler::MakeSendBufferPtr(movePacket);
+						_session->PostSend(_sendBuffer);
+					}
+				}
+			}
+		);
+	}
 }
 
-void Zone::HandleSkill(PlayerPtr player, protocol::RequestSkill packet)
+void Zone::HandleSkill(ActorPtr actor, protocol::RequestSkill packet)
 {
-	if (player == nullptr)
+	if (actor == nullptr)
 		return;
 
 	double dist = 0.f;
@@ -340,7 +336,7 @@ void Zone::HandleSkill(PlayerPtr player, protocol::RequestSkill packet)
 
 	//Check Distance
 	{
-		ZonePtr	_zone = GZoneManager.FindZoneByID(player->zoneID);
+		ZonePtr	_zone = GZoneManager.FindZoneByID(actor->zoneID);
 		auto it = std::find_if(_zone->actorVector.begin(), _zone->actorVector.end(), [packet](ActorPtr _actor)
 		{
 			return _actor->ActorInfo.actorid() == packet.targetactorid();
@@ -353,8 +349,8 @@ void Zone::HandleSkill(PlayerPtr player, protocol::RequestSkill packet)
 
 		targetActor = *it;
 		Vector2Int targetPos(targetActor->ActorInfo.posinfo().posx(), targetActor->ActorInfo.posinfo().posy());
-		Vector2Int playerPos(player->ActorInfo.posinfo().posx(), player->ActorInfo.posinfo().posy());
-		dist = Vector2Int::Distance(targetPos, playerPos);
+		Vector2Int actorPos(actor->ActorInfo.posinfo().posx(), actor->ActorInfo.posinfo().posy());
+		dist = Vector2Int::Distance(targetPos, actorPos);
 	}
 
 	if (packet.skillid() == 2)
@@ -362,8 +358,8 @@ void Zone::HandleSkill(PlayerPtr player, protocol::RequestSkill packet)
 		if (dist > 3.f)
 			return;
 
-		targetActor->OnDamaged(player, player->ActorInfo.statinfo().attack());
-		printf("INFO: Player=%s Melee Atack to Monster=%s Damage=%d\n", player->ActorInfo.name().c_str(), targetActor->ActorInfo.name().c_str(), player->ActorInfo.statinfo().attack());
+		targetActor->OnDamaged(actor, actor->ActorInfo.statinfo().attack());
+		printf("INFO: Player=%s Melee Atack to Monster=%s Damage=%d\n", actor->ActorInfo.name().c_str(), targetActor->ActorInfo.name().c_str(), actor->ActorInfo.statinfo().attack());
 	}
 
 	else if (packet.skillid() == 3)
@@ -373,8 +369,8 @@ void Zone::HandleSkill(PlayerPtr player, protocol::RequestSkill packet)
 
 	//BroadCast
 	protocol::ReturnSkill resSkillPacket;
-	resSkillPacket.set_actorid(player->ActorInfo.actorid());
+	resSkillPacket.set_actorid(actor->ActorInfo.actorid());
 	resSkillPacket.set_skillid(packet.skillid());
 	auto _sendBuffer = ClientPacketHandler::MakeSendBufferPtr(resSkillPacket);
-	BroadCast(Vector2Int::GetVectorFromActorPos(player->ActorInfo.posinfo()), _sendBuffer);
+	BroadCast(Vector2Int::GetVectorFromActorPos(actor->ActorInfo.posinfo()), _sendBuffer);
 }

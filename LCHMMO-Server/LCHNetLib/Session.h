@@ -47,6 +47,7 @@ public:
 	SendEvent sessionSendEvent;
 	RecvEvent sessionRecvEvent;
 
+private:
 	AtomicBool isConnected = false;
 	RecursiveMutex sendLock;
 	RecursiveMutex recvLock;

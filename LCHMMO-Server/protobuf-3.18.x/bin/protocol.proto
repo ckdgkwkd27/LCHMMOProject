@@ -25,6 +25,12 @@ message StatInfo {
   uint32 totalExp = 6;
 }
 
+message NpcInfo
+{
+	ObjectInfo objects = 1;
+	uint32 NpcId = 2;
+}
+
 message RequestJoin
 {
 	string id = 1;
@@ -67,7 +73,8 @@ message NotifySpawn
 
 message RequestMove
 {
-	PositionInfo posInfo = 1;
+	uint32 actorId = 1;
+	PositionInfo posInfo = 2;
 }
 
 message ReturnMove
@@ -85,7 +92,8 @@ message NotifySetHp
 message RequestSkill
 {
 	uint32 skillId = 1;
-	uint32 targetActorId = 2;
+	uint32 actorId = 2;
+	uint32 targetActorId = 3;
 }
 
 message ReturnSkill
@@ -121,4 +129,25 @@ message ReturnTeleport
 message RequestViewportUpdate
 {
 	uint32 playerId = 1;
+}
+
+message NotifyInitClient
+{
+	uint32 serviceId = 1;
+}
+
+message RequestNpcSpawn
+{
+	uint32 zoneId = 1;
+	repeated NpcInfo npcBuf = 2;
+}
+
+message ReturnNpcSpawn
+{
+	repeated NpcInfo npcBuf = 1;
+}
+
+message NotifyWorldTick
+{
+	uint32 CurrTimeStamp = 1;
 }

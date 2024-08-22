@@ -35,15 +35,10 @@ public class PlayerController : CreatureController
     {
         base.Update();
 
-        //destination.PosX = PosInfo.PosX;
-        //destination.PosY = PosInfo.PosY;
-        //destination.MoveDir = PosInfo.MoveDir;
-
         if (State == CreatureState.MOVING && IsMyPlayer() == false)
         {
             Vector3 direction = Util.GetVecFromDir((MoveDirType)destination.MoveDir);
             transform.position += direction * Stat.Speed * Time.deltaTime;
-            Debug.Log($"position (x, y)=({transform.position.x}, {transform.position.y})");
         }
     }
 

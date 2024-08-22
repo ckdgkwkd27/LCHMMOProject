@@ -47,6 +47,8 @@ public class Util
                 return PacketID.PKT_CS_TELEPORT;
             case "ReturnTeleport":
                 return PacketID.PKT_SC_TELEPORT;
+            case "PKT_CS_INIT_CLIENT":
+                return PacketID.PKT_CS_INIT_CLIENT;
 
             default:
                 return PacketID.PKT_ERROR;

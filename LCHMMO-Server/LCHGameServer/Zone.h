@@ -26,11 +26,10 @@ public:
 	void BroadCast(ActorPtr _selfPlayer, CircularBufferPtr _sendBuffer);
 	void BroadCast(Vector2Int cellPos, CircularBufferPtr _sendBuffer);
 	bool Update();
-	bool PlayerViewportUpdate();
 	void EnterGame(PlayerPtr player, ZoneIDType zoneId = 0);
 	void LeaveGame(ActorIDType _actorId);
-	void HandleMove(PlayerPtr player, protocol::RequestMove movePacket);
-	void HandleSkill(PlayerPtr player, protocol::RequestSkill packet);
+	void HandleMove(ActorPtr actor, protocol::RequestMove movePacket);
+	void HandleSkill(ActorPtr actor, protocol::RequestSkill packet);
 
 public:
 	ZoneIDType zoneID;

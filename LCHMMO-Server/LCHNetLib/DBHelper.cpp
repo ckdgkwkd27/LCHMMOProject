@@ -23,7 +23,6 @@ DBHelper::~DBHelper()
 bool DBHelper::Initialize(const wchar_t* connInfo, uint32 dbThreadCnt)
 {
 	sqlConnPool = new SqlConn[dbThreadCnt];
-	DBWorkerThreadCnt = dbThreadCnt;
 
 	if (SQL_SUCCESS != SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, &sqlHenv))
 	{
@@ -38,7 +37,7 @@ bool DBHelper::Initialize(const wchar_t* connInfo, uint32 dbThreadCnt)
 	}
 
 	/// 스레드별로 SQL connection을 풀링하는 방식
-	for (uint32 i = 0; i < DBWorkerThreadCnt; ++i)
+	for (uint32 i = 0; i < dbThreadCnt; ++i)
 	{
 		if (SQL_SUCCESS != SQLAllocHandle(SQL_HANDLE_DBC, sqlHenv, &sqlConnPool[i].sqlHdbc))
 		{

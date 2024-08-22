@@ -26,6 +26,7 @@
 #include <mutex>
 #include <atomic>
 #include <random>
+#include <cmath>
 
 #pragma comment(lib, "ws2_32.lib")
 #pragma comment(lib, "mswsock.lib")

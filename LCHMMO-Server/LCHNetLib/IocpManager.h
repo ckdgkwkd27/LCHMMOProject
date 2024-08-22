@@ -27,7 +27,7 @@ public:
 	template <typename T>
 	void StartAccept();
 
-	void Dispatch(IocpEvent* iocpEvent, DWORD bytes);
+	bool Dispatch(IocpEvent* iocpEvent, DWORD bytes);
 	void AcceptThreadFunc();
 	void WorkerThreadFunc();
 	bool IocpPost(CircularBufferPtr buffer, IocpEvent* iocpEvent);

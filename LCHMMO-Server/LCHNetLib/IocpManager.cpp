@@ -65,15 +65,15 @@ void IocpManager::AcceptThreadFunc()
 {
 	while (GSessionManager.AcceptClientSession(maxConnectionCnt))
 	{
-		std::this_thread::sleep_for(std::chrono::milliseconds(10));
+		std::this_thread::sleep_for(std::chrono::milliseconds(1));
 	}
 }
 
-void IocpManager::Dispatch(IocpEvent* iocpEvent, DWORD bytes)
+bool IocpManager::Dispatch(IocpEvent* iocpEvent, DWORD bytes)
 {
 	SessionPtr _session = iocpEvent->sessionRef;
 	if (_session == nullptr)
-		return;
+		return false;
 
 	switch (iocpEvent->GetType())
 	{
@@ -106,8 +106,10 @@ void IocpManager::Dispatch(IocpEvent* iocpEvent, DWORD bytes)
 	}
 	default:
 		std::cout << "[FAIL] Wrong EventType: " << (uint8)iocpEvent->GetType() << std::endl;
-		break;
+		return false;
 	}
+
+	return true;
 }
 
 void IocpManager::WorkerThreadFunc()
@@ -163,7 +165,7 @@ void IocpManager::WorkerThreadFunc()
 
 		else
 		{ 
-			Dispatch(iocpEvent, bytes);
+			RETURN_ON_FAIL(Dispatch(iocpEvent, bytes));
 		}
 	}
 }

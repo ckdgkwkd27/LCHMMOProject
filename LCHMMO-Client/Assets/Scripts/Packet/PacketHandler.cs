@@ -54,7 +54,6 @@ class PacketHandler
     public static void HandleNotifySpawn(ServerSession session, IMessage packet)
     {
         NotifySpawn spawnPacket = packet as NotifySpawn;
-        Debug.Log($"SpawnPacket Size={spawnPacket.Objects.Capacity}");
         foreach (ObjectInfo obj in spawnPacket.Objects)
         {
             Managers.Object.Add(obj, false);
@@ -145,7 +144,6 @@ class PacketHandler
         NotifyDespawn desPacket = message as NotifyDespawn;
         foreach (uint id in desPacket.ActorIds)
         {
-            Debug.Log($"Despawn Actor={id}");
             Managers.Object.Remove(id);
         }
     }

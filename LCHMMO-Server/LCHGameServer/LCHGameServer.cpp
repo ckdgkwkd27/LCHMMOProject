@@ -43,7 +43,6 @@ int main()
         }, std::chrono::duration<int64, std::milli>(1000));
     });
 
-
     while (true)
     {
 

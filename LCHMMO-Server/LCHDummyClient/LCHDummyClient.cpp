@@ -11,7 +11,7 @@ int main()
 {
     ServerPacketHandler::Init();
 
-    IocpManager* iocpManager = new IocpManager(L"127.0.0.1", 8888, 1500);
+    IocpManager* iocpManager = new IocpManager(L"127.0.0.1", 8888, 500);
     iocpManager->Initialize();
     iocpManager->StartWorker();
     iocpManager->StartConnect<ServerSession>();

@@ -23,7 +23,7 @@ Monster::Monster()
 
 void Monster::Update()
 {
-	switch ((MoveState)ActorInfo.posinfo().state())
+	/*switch ((MoveState)ActorInfo.posinfo().state())
 	{
 	case MoveState::IDLE:
 		UpdateIdle();
@@ -40,7 +40,7 @@ void Monster::Update()
 	case MoveState::DEAD:
 		UpdateDead();
 		break;
-	}
+	}*/
 }
 
 void Monster::UpdateIdle()

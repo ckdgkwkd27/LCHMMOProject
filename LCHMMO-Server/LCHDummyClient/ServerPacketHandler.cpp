@@ -90,8 +90,8 @@ bool Handle_PKT_SC_ENTER_GAME(ServerSessionPtr& session, protocol::ReturnEnterGa
 {
 	LockGuard guard(handlerLock);
 
-	int32 x = RandomUtil::GetRandomRangeInt(-506, 399);
-	int32 y = RandomUtil::GetRandomRangeInt(-384, 207);
+	int32 x = RandomUtil::GetRandomRangeInt(-100, 100);
+	int32 y = RandomUtil::GetRandomRangeInt(-100, 100);
 	session->posX = x;
 	session->posY = y;
 

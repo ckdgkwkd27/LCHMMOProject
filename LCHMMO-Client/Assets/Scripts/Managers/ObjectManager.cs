@@ -77,7 +77,6 @@ public class ObjectManager
             return;
 
         _objects.Remove(id);
-        Debug.Log($"Remove name={go.name}");
         Managers.Resource.Destroy(go);
     }
 

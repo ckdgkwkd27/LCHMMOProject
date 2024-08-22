@@ -46,7 +46,7 @@ struct TableStruct_protocol_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[20]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[25]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -60,12 +60,21 @@ extern NotifyDespawnDefaultTypeInternal _NotifyDespawn_default_instance_;
 class NotifyDie;
 struct NotifyDieDefaultTypeInternal;
 extern NotifyDieDefaultTypeInternal _NotifyDie_default_instance_;
+class NotifyInitClient;
+struct NotifyInitClientDefaultTypeInternal;
+extern NotifyInitClientDefaultTypeInternal _NotifyInitClient_default_instance_;
 class NotifySetHp;
 struct NotifySetHpDefaultTypeInternal;
 extern NotifySetHpDefaultTypeInternal _NotifySetHp_default_instance_;
 class NotifySpawn;
 struct NotifySpawnDefaultTypeInternal;
 extern NotifySpawnDefaultTypeInternal _NotifySpawn_default_instance_;
+class NotifyWorldTick;
+struct NotifyWorldTickDefaultTypeInternal;
+extern NotifyWorldTickDefaultTypeInternal _NotifyWorldTick_default_instance_;
+class NpcInfo;
+struct NpcInfoDefaultTypeInternal;
+extern NpcInfoDefaultTypeInternal _NpcInfo_default_instance_;
 class ObjectInfo;
 struct ObjectInfoDefaultTypeInternal;
 extern ObjectInfoDefaultTypeInternal _ObjectInfo_default_instance_;
@@ -84,6 +93,9 @@ extern RequestLoginDefaultTypeInternal _RequestLogin_default_instance_;
 class RequestMove;
 struct RequestMoveDefaultTypeInternal;
 extern RequestMoveDefaultTypeInternal _RequestMove_default_instance_;
+class RequestNpcSpawn;
+struct RequestNpcSpawnDefaultTypeInternal;
+extern RequestNpcSpawnDefaultTypeInternal _RequestNpcSpawn_default_instance_;
 class RequestSkill;
 struct RequestSkillDefaultTypeInternal;
 extern RequestSkillDefaultTypeInternal _RequestSkill_default_instance_;
@@ -105,6 +117,9 @@ extern ReturnLoginDefaultTypeInternal _ReturnLogin_default_instance_;
 class ReturnMove;
 struct ReturnMoveDefaultTypeInternal;
 extern ReturnMoveDefaultTypeInternal _ReturnMove_default_instance_;
+class ReturnNpcSpawn;
+struct ReturnNpcSpawnDefaultTypeInternal;
+extern ReturnNpcSpawnDefaultTypeInternal _ReturnNpcSpawn_default_instance_;
 class ReturnSkill;
 struct ReturnSkillDefaultTypeInternal;
 extern ReturnSkillDefaultTypeInternal _ReturnSkill_default_instance_;
@@ -118,14 +133,18 @@ extern StatInfoDefaultTypeInternal _StatInfo_default_instance_;
 PROTOBUF_NAMESPACE_OPEN
 template<> ::protocol::NotifyDespawn* Arena::CreateMaybeMessage<::protocol::NotifyDespawn>(Arena*);
 template<> ::protocol::NotifyDie* Arena::CreateMaybeMessage<::protocol::NotifyDie>(Arena*);
+template<> ::protocol::NotifyInitClient* Arena::CreateMaybeMessage<::protocol::NotifyInitClient>(Arena*);
 template<> ::protocol::NotifySetHp* Arena::CreateMaybeMessage<::protocol::NotifySetHp>(Arena*);
 template<> ::protocol::NotifySpawn* Arena::CreateMaybeMessage<::protocol::NotifySpawn>(Arena*);
+template<> ::protocol::NotifyWorldTick* Arena::CreateMaybeMessage<::protocol::NotifyWorldTick>(Arena*);
+template<> ::protocol::NpcInfo* Arena::CreateMaybeMessage<::protocol::NpcInfo>(Arena*);
 template<> ::protocol::ObjectInfo* Arena::CreateMaybeMessage<::protocol::ObjectInfo>(Arena*);
 template<> ::protocol::PositionInfo* Arena::CreateMaybeMessage<::protocol::PositionInfo>(Arena*);
 template<> ::protocol::RequestEnterGame* Arena::CreateMaybeMessage<::protocol::RequestEnterGame>(Arena*);
 template<> ::protocol::RequestJoin* Arena::CreateMaybeMessage<::protocol::RequestJoin>(Arena*);
 template<> ::protocol::RequestLogin* Arena::CreateMaybeMessage<::protocol::RequestLogin>(Arena*);
 template<> ::protocol::RequestMove* Arena::CreateMaybeMessage<::protocol::RequestMove>(Arena*);
+template<> ::protocol::RequestNpcSpawn* Arena::CreateMaybeMessage<::protocol::RequestNpcSpawn>(Arena*);
 template<> ::protocol::RequestSkill* Arena::CreateMaybeMessage<::protocol::RequestSkill>(Arena*);
 template<> ::protocol::RequestTeleport* Arena::CreateMaybeMessage<::protocol::RequestTeleport>(Arena*);
 template<> ::protocol::RequestViewportUpdate* Arena::CreateMaybeMessage<::protocol::RequestViewportUpdate>(Arena*);
@@ -133,6 +152,7 @@ template<> ::protocol::ReturnEnterGame* Arena::CreateMaybeMessage<::protocol::Re
 template<> ::protocol::ReturnJoin* Arena::CreateMaybeMessage<::protocol::ReturnJoin>(Arena*);
 template<> ::protocol::ReturnLogin* Arena::CreateMaybeMessage<::protocol::ReturnLogin>(Arena*);
 template<> ::protocol::ReturnMove* Arena::CreateMaybeMessage<::protocol::ReturnMove>(Arena*);
+template<> ::protocol::ReturnNpcSpawn* Arena::CreateMaybeMessage<::protocol::ReturnNpcSpawn>(Arena*);
 template<> ::protocol::ReturnSkill* Arena::CreateMaybeMessage<::protocol::ReturnSkill>(Arena*);
 template<> ::protocol::ReturnTeleport* Arena::CreateMaybeMessage<::protocol::ReturnTeleport>(Arena*);
 template<> ::protocol::StatInfo* Arena::CreateMaybeMessage<::protocol::StatInfo>(Arena*);
@@ -725,6 +745,169 @@ class StatInfo final :
 };
 // -------------------------------------------------------------------
 
+class NpcInfo final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:protocol.NpcInfo) */ {
+ public:
+  inline NpcInfo() : NpcInfo(nullptr) {}
+  ~NpcInfo() override;
+  explicit constexpr NpcInfo(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  NpcInfo(const NpcInfo& from);
+  NpcInfo(NpcInfo&& from) noexcept
+    : NpcInfo() {
+    *this = ::std::move(from);
+  }
+
+  inline NpcInfo& operator=(const NpcInfo& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline NpcInfo& operator=(NpcInfo&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const NpcInfo& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const NpcInfo* internal_default_instance() {
+    return reinterpret_cast<const NpcInfo*>(
+               &_NpcInfo_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  friend void swap(NpcInfo& a, NpcInfo& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(NpcInfo* other) {
+    if (other == this) return;
+    if (GetOwningArena() == other->GetOwningArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(NpcInfo* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline NpcInfo* New() const final {
+    return new NpcInfo();
+  }
+
+  NpcInfo* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<NpcInfo>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const NpcInfo& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const NpcInfo& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(NpcInfo* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "protocol.NpcInfo";
+  }
+  protected:
+  explicit NpcInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kObjectsFieldNumber = 1,
+    kNpcIdFieldNumber = 2,
+  };
+  // .protocol.ObjectInfo objects = 1;
+  bool has_objects() const;
+  private:
+  bool _internal_has_objects() const;
+  public:
+  void clear_objects();
+  const ::protocol::ObjectInfo& objects() const;
+  PROTOBUF_MUST_USE_RESULT ::protocol::ObjectInfo* release_objects();
+  ::protocol::ObjectInfo* mutable_objects();
+  void set_allocated_objects(::protocol::ObjectInfo* objects);
+  private:
+  const ::protocol::ObjectInfo& _internal_objects() const;
+  ::protocol::ObjectInfo* _internal_mutable_objects();
+  public:
+  void unsafe_arena_set_allocated_objects(
+      ::protocol::ObjectInfo* objects);
+  ::protocol::ObjectInfo* unsafe_arena_release_objects();
+
+  // uint32 NpcId = 2;
+  void clear_npcid();
+  ::PROTOBUF_NAMESPACE_ID::uint32 npcid() const;
+  void set_npcid(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_npcid() const;
+  void _internal_set_npcid(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:protocol.NpcInfo)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::protocol::ObjectInfo* objects_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 npcid_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_protocol_2eproto;
+};
+// -------------------------------------------------------------------
+
 class RequestJoin final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:protocol.RequestJoin) */ {
  public:
@@ -773,7 +956,7 @@ class RequestJoin final :
                &_RequestJoin_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    4;
 
   friend void swap(RequestJoin& a, RequestJoin& b) {
     a.Swap(&b);
@@ -937,7 +1120,7 @@ class ReturnJoin final :
                &_ReturnJoin_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    5;
 
   friend void swap(ReturnJoin& a, ReturnJoin& b) {
     a.Swap(&b);
@@ -1080,7 +1263,7 @@ class RequestLogin final :
                &_RequestLogin_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    6;
 
   friend void swap(RequestLogin& a, RequestLogin& b) {
     a.Swap(&b);
@@ -1244,7 +1427,7 @@ class ReturnLogin final :
                &_ReturnLogin_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    7;
 
   friend void swap(ReturnLogin& a, ReturnLogin& b) {
     a.Swap(&b);
@@ -1398,7 +1581,7 @@ class RequestEnterGame final :
                &_RequestEnterGame_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    8;
 
   friend void swap(RequestEnterGame& a, RequestEnterGame& b) {
     a.Swap(&b);
@@ -1552,7 +1735,7 @@ class ReturnEnterGame final :
                &_ReturnEnterGame_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    9;
 
   friend void swap(ReturnEnterGame& a, ReturnEnterGame& b) {
     a.Swap(&b);
@@ -1715,7 +1898,7 @@ class NotifySpawn final :
                &_NotifySpawn_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    10;
 
   friend void swap(NotifySpawn& a, NotifySpawn& b) {
     a.Swap(&b);
@@ -1867,7 +2050,7 @@ class RequestMove final :
                &_RequestMove_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    11;
 
   friend void swap(RequestMove& a, RequestMove& b) {
     a.Swap(&b);
@@ -1938,9 +2121,10 @@ class RequestMove final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kPosInfoFieldNumber = 1,
+    kPosInfoFieldNumber = 2,
+    kActorIdFieldNumber = 1,
   };
-  // .protocol.PositionInfo posInfo = 1;
+  // .protocol.PositionInfo posInfo = 2;
   bool has_posinfo() const;
   private:
   bool _internal_has_posinfo() const;
@@ -1958,6 +2142,15 @@ class RequestMove final :
       ::protocol::PositionInfo* posinfo);
   ::protocol::PositionInfo* unsafe_arena_release_posinfo();
 
+  // uint32 actorId = 1;
+  void clear_actorid();
+  ::PROTOBUF_NAMESPACE_ID::uint32 actorid() const;
+  void set_actorid(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_actorid() const;
+  void _internal_set_actorid(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
   // @@protoc_insertion_point(class_scope:protocol.RequestMove)
  private:
   class _Internal;
@@ -1966,6 +2159,7 @@ class RequestMove final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::protocol::PositionInfo* posinfo_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 actorid_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_protocol_2eproto;
 };
@@ -2019,7 +2213,7 @@ class ReturnMove final :
                &_ReturnMove_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    12;
 
   friend void swap(ReturnMove& a, ReturnMove& b) {
     a.Swap(&b);
@@ -2182,7 +2376,7 @@ class NotifySetHp final :
                &_NotifySetHp_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    13;
 
   friend void swap(NotifySetHp& a, NotifySetHp& b) {
     a.Swap(&b);
@@ -2336,7 +2530,7 @@ class RequestSkill final :
                &_RequestSkill_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    14;
 
   friend void swap(RequestSkill& a, RequestSkill& b) {
     a.Swap(&b);
@@ -2408,7 +2602,8 @@ class RequestSkill final :
 
   enum : int {
     kSkillIdFieldNumber = 1,
-    kTargetActorIdFieldNumber = 2,
+    kActorIdFieldNumber = 2,
+    kTargetActorIdFieldNumber = 3,
   };
   // uint32 skillId = 1;
   void clear_skillid();
@@ -2419,7 +2614,16 @@ class RequestSkill final :
   void _internal_set_skillid(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
-  // uint32 targetActorId = 2;
+  // uint32 actorId = 2;
+  void clear_actorid();
+  ::PROTOBUF_NAMESPACE_ID::uint32 actorid() const;
+  void set_actorid(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_actorid() const;
+  void _internal_set_actorid(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // uint32 targetActorId = 3;
   void clear_targetactorid();
   ::PROTOBUF_NAMESPACE_ID::uint32 targetactorid() const;
   void set_targetactorid(::PROTOBUF_NAMESPACE_ID::uint32 value);
@@ -2436,6 +2640,7 @@ class RequestSkill final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::uint32 skillid_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 actorid_;
   ::PROTOBUF_NAMESPACE_ID::uint32 targetactorid_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_protocol_2eproto;
@@ -2490,7 +2695,7 @@ class ReturnSkill final :
                &_ReturnSkill_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    15;
 
   friend void swap(ReturnSkill& a, ReturnSkill& b) {
     a.Swap(&b);
@@ -2644,7 +2849,7 @@ class NotifyDie final :
                &_NotifyDie_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    16;
 
   friend void swap(NotifyDie& a, NotifyDie& b) {
     a.Swap(&b);
@@ -2798,7 +3003,7 @@ class NotifyDespawn final :
                &_NotifyDespawn_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    17;
 
   friend void swap(NotifyDespawn& a, NotifyDespawn& b) {
     a.Swap(&b);
@@ -2955,7 +3160,7 @@ class RequestTeleport final :
                &_RequestTeleport_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    17;
+    18;
 
   friend void swap(RequestTeleport& a, RequestTeleport& b) {
     a.Swap(&b);
@@ -3129,7 +3334,7 @@ class ReturnTeleport final :
                &_ReturnTeleport_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    18;
+    19;
 
   friend void swap(ReturnTeleport& a, ReturnTeleport& b) {
     a.Swap(&b);
@@ -3283,7 +3488,7 @@ class RequestViewportUpdate final :
                &_RequestViewportUpdate_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    19;
+    20;
 
   friend void swap(RequestViewportUpdate& a, RequestViewportUpdate& b) {
     a.Swap(&b);
@@ -3373,6 +3578,607 @@ class RequestViewportUpdate final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::uint32 playerid_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_protocol_2eproto;
+};
+// -------------------------------------------------------------------
+
+class NotifyInitClient final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:protocol.NotifyInitClient) */ {
+ public:
+  inline NotifyInitClient() : NotifyInitClient(nullptr) {}
+  ~NotifyInitClient() override;
+  explicit constexpr NotifyInitClient(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  NotifyInitClient(const NotifyInitClient& from);
+  NotifyInitClient(NotifyInitClient&& from) noexcept
+    : NotifyInitClient() {
+    *this = ::std::move(from);
+  }
+
+  inline NotifyInitClient& operator=(const NotifyInitClient& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline NotifyInitClient& operator=(NotifyInitClient&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const NotifyInitClient& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const NotifyInitClient* internal_default_instance() {
+    return reinterpret_cast<const NotifyInitClient*>(
+               &_NotifyInitClient_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    21;
+
+  friend void swap(NotifyInitClient& a, NotifyInitClient& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(NotifyInitClient* other) {
+    if (other == this) return;
+    if (GetOwningArena() == other->GetOwningArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(NotifyInitClient* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline NotifyInitClient* New() const final {
+    return new NotifyInitClient();
+  }
+
+  NotifyInitClient* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<NotifyInitClient>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const NotifyInitClient& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const NotifyInitClient& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(NotifyInitClient* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "protocol.NotifyInitClient";
+  }
+  protected:
+  explicit NotifyInitClient(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kServiceIdFieldNumber = 1,
+  };
+  // uint32 serviceId = 1;
+  void clear_serviceid();
+  ::PROTOBUF_NAMESPACE_ID::uint32 serviceid() const;
+  void set_serviceid(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_serviceid() const;
+  void _internal_set_serviceid(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:protocol.NotifyInitClient)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 serviceid_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_protocol_2eproto;
+};
+// -------------------------------------------------------------------
+
+class RequestNpcSpawn final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:protocol.RequestNpcSpawn) */ {
+ public:
+  inline RequestNpcSpawn() : RequestNpcSpawn(nullptr) {}
+  ~RequestNpcSpawn() override;
+  explicit constexpr RequestNpcSpawn(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  RequestNpcSpawn(const RequestNpcSpawn& from);
+  RequestNpcSpawn(RequestNpcSpawn&& from) noexcept
+    : RequestNpcSpawn() {
+    *this = ::std::move(from);
+  }
+
+  inline RequestNpcSpawn& operator=(const RequestNpcSpawn& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline RequestNpcSpawn& operator=(RequestNpcSpawn&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const RequestNpcSpawn& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const RequestNpcSpawn* internal_default_instance() {
+    return reinterpret_cast<const RequestNpcSpawn*>(
+               &_RequestNpcSpawn_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    22;
+
+  friend void swap(RequestNpcSpawn& a, RequestNpcSpawn& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(RequestNpcSpawn* other) {
+    if (other == this) return;
+    if (GetOwningArena() == other->GetOwningArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(RequestNpcSpawn* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline RequestNpcSpawn* New() const final {
+    return new RequestNpcSpawn();
+  }
+
+  RequestNpcSpawn* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<RequestNpcSpawn>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const RequestNpcSpawn& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const RequestNpcSpawn& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(RequestNpcSpawn* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "protocol.RequestNpcSpawn";
+  }
+  protected:
+  explicit RequestNpcSpawn(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNpcBufFieldNumber = 2,
+    kZoneIdFieldNumber = 1,
+  };
+  // repeated .protocol.NpcInfo npcBuf = 2;
+  int npcbuf_size() const;
+  private:
+  int _internal_npcbuf_size() const;
+  public:
+  void clear_npcbuf();
+  ::protocol::NpcInfo* mutable_npcbuf(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::protocol::NpcInfo >*
+      mutable_npcbuf();
+  private:
+  const ::protocol::NpcInfo& _internal_npcbuf(int index) const;
+  ::protocol::NpcInfo* _internal_add_npcbuf();
+  public:
+  const ::protocol::NpcInfo& npcbuf(int index) const;
+  ::protocol::NpcInfo* add_npcbuf();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::protocol::NpcInfo >&
+      npcbuf() const;
+
+  // uint32 zoneId = 1;
+  void clear_zoneid();
+  ::PROTOBUF_NAMESPACE_ID::uint32 zoneid() const;
+  void set_zoneid(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_zoneid() const;
+  void _internal_set_zoneid(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:protocol.RequestNpcSpawn)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::protocol::NpcInfo > npcbuf_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 zoneid_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_protocol_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ReturnNpcSpawn final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:protocol.ReturnNpcSpawn) */ {
+ public:
+  inline ReturnNpcSpawn() : ReturnNpcSpawn(nullptr) {}
+  ~ReturnNpcSpawn() override;
+  explicit constexpr ReturnNpcSpawn(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ReturnNpcSpawn(const ReturnNpcSpawn& from);
+  ReturnNpcSpawn(ReturnNpcSpawn&& from) noexcept
+    : ReturnNpcSpawn() {
+    *this = ::std::move(from);
+  }
+
+  inline ReturnNpcSpawn& operator=(const ReturnNpcSpawn& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ReturnNpcSpawn& operator=(ReturnNpcSpawn&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const ReturnNpcSpawn& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ReturnNpcSpawn* internal_default_instance() {
+    return reinterpret_cast<const ReturnNpcSpawn*>(
+               &_ReturnNpcSpawn_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    23;
+
+  friend void swap(ReturnNpcSpawn& a, ReturnNpcSpawn& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ReturnNpcSpawn* other) {
+    if (other == this) return;
+    if (GetOwningArena() == other->GetOwningArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ReturnNpcSpawn* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ReturnNpcSpawn* New() const final {
+    return new ReturnNpcSpawn();
+  }
+
+  ReturnNpcSpawn* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<ReturnNpcSpawn>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const ReturnNpcSpawn& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const ReturnNpcSpawn& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ReturnNpcSpawn* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "protocol.ReturnNpcSpawn";
+  }
+  protected:
+  explicit ReturnNpcSpawn(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNpcBufFieldNumber = 1,
+  };
+  // repeated .protocol.NpcInfo npcBuf = 1;
+  int npcbuf_size() const;
+  private:
+  int _internal_npcbuf_size() const;
+  public:
+  void clear_npcbuf();
+  ::protocol::NpcInfo* mutable_npcbuf(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::protocol::NpcInfo >*
+      mutable_npcbuf();
+  private:
+  const ::protocol::NpcInfo& _internal_npcbuf(int index) const;
+  ::protocol::NpcInfo* _internal_add_npcbuf();
+  public:
+  const ::protocol::NpcInfo& npcbuf(int index) const;
+  ::protocol::NpcInfo* add_npcbuf();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::protocol::NpcInfo >&
+      npcbuf() const;
+
+  // @@protoc_insertion_point(class_scope:protocol.ReturnNpcSpawn)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::protocol::NpcInfo > npcbuf_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_protocol_2eproto;
+};
+// -------------------------------------------------------------------
+
+class NotifyWorldTick final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:protocol.NotifyWorldTick) */ {
+ public:
+  inline NotifyWorldTick() : NotifyWorldTick(nullptr) {}
+  ~NotifyWorldTick() override;
+  explicit constexpr NotifyWorldTick(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  NotifyWorldTick(const NotifyWorldTick& from);
+  NotifyWorldTick(NotifyWorldTick&& from) noexcept
+    : NotifyWorldTick() {
+    *this = ::std::move(from);
+  }
+
+  inline NotifyWorldTick& operator=(const NotifyWorldTick& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline NotifyWorldTick& operator=(NotifyWorldTick&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const NotifyWorldTick& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const NotifyWorldTick* internal_default_instance() {
+    return reinterpret_cast<const NotifyWorldTick*>(
+               &_NotifyWorldTick_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    24;
+
+  friend void swap(NotifyWorldTick& a, NotifyWorldTick& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(NotifyWorldTick* other) {
+    if (other == this) return;
+    if (GetOwningArena() == other->GetOwningArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(NotifyWorldTick* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline NotifyWorldTick* New() const final {
+    return new NotifyWorldTick();
+  }
+
+  NotifyWorldTick* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<NotifyWorldTick>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const NotifyWorldTick& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const NotifyWorldTick& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(NotifyWorldTick* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "protocol.NotifyWorldTick";
+  }
+  protected:
+  explicit NotifyWorldTick(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kCurrTimeStampFieldNumber = 1,
+  };
+  // uint32 CurrTimeStamp = 1;
+  void clear_currtimestamp();
+  ::PROTOBUF_NAMESPACE_ID::uint32 currtimestamp() const;
+  void set_currtimestamp(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_currtimestamp() const;
+  void _internal_set_currtimestamp(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:protocol.NotifyWorldTick)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 currtimestamp_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_protocol_2eproto;
 };
@@ -3863,6 +4669,120 @@ inline void StatInfo::set_totalexp(::PROTOBUF_NAMESPACE_ID::uint32 value) {
 
 // -------------------------------------------------------------------
 
+// NpcInfo
+
+// .protocol.ObjectInfo objects = 1;
+inline bool NpcInfo::_internal_has_objects() const {
+  return this != internal_default_instance() && objects_ != nullptr;
+}
+inline bool NpcInfo::has_objects() const {
+  return _internal_has_objects();
+}
+inline void NpcInfo::clear_objects() {
+  if (GetArenaForAllocation() == nullptr && objects_ != nullptr) {
+    delete objects_;
+  }
+  objects_ = nullptr;
+}
+inline const ::protocol::ObjectInfo& NpcInfo::_internal_objects() const {
+  const ::protocol::ObjectInfo* p = objects_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protocol::ObjectInfo&>(
+      ::protocol::_ObjectInfo_default_instance_);
+}
+inline const ::protocol::ObjectInfo& NpcInfo::objects() const {
+  // @@protoc_insertion_point(field_get:protocol.NpcInfo.objects)
+  return _internal_objects();
+}
+inline void NpcInfo::unsafe_arena_set_allocated_objects(
+    ::protocol::ObjectInfo* objects) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(objects_);
+  }
+  objects_ = objects;
+  if (objects) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protocol.NpcInfo.objects)
+}
+inline ::protocol::ObjectInfo* NpcInfo::release_objects() {
+  
+  ::protocol::ObjectInfo* temp = objects_;
+  objects_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::protocol::ObjectInfo* NpcInfo::unsafe_arena_release_objects() {
+  // @@protoc_insertion_point(field_release:protocol.NpcInfo.objects)
+  
+  ::protocol::ObjectInfo* temp = objects_;
+  objects_ = nullptr;
+  return temp;
+}
+inline ::protocol::ObjectInfo* NpcInfo::_internal_mutable_objects() {
+  
+  if (objects_ == nullptr) {
+    auto* p = CreateMaybeMessage<::protocol::ObjectInfo>(GetArenaForAllocation());
+    objects_ = p;
+  }
+  return objects_;
+}
+inline ::protocol::ObjectInfo* NpcInfo::mutable_objects() {
+  ::protocol::ObjectInfo* _msg = _internal_mutable_objects();
+  // @@protoc_insertion_point(field_mutable:protocol.NpcInfo.objects)
+  return _msg;
+}
+inline void NpcInfo::set_allocated_objects(::protocol::ObjectInfo* objects) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete objects_;
+  }
+  if (objects) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::protocol::ObjectInfo>::GetOwningArena(objects);
+    if (message_arena != submessage_arena) {
+      objects = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, objects, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  objects_ = objects;
+  // @@protoc_insertion_point(field_set_allocated:protocol.NpcInfo.objects)
+}
+
+// uint32 NpcId = 2;
+inline void NpcInfo::clear_npcid() {
+  npcid_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 NpcInfo::_internal_npcid() const {
+  return npcid_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 NpcInfo::npcid() const {
+  // @@protoc_insertion_point(field_get:protocol.NpcInfo.NpcId)
+  return _internal_npcid();
+}
+inline void NpcInfo::_internal_set_npcid(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  npcid_ = value;
+}
+inline void NpcInfo::set_npcid(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_npcid(value);
+  // @@protoc_insertion_point(field_set:protocol.NpcInfo.NpcId)
+}
+
+// -------------------------------------------------------------------
+
 // RequestJoin
 
 // string id = 1;
@@ -4327,7 +5247,27 @@ NotifySpawn::objects() const {
 
 // RequestMove
 
-// .protocol.PositionInfo posInfo = 1;
+// uint32 actorId = 1;
+inline void RequestMove::clear_actorid() {
+  actorid_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 RequestMove::_internal_actorid() const {
+  return actorid_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 RequestMove::actorid() const {
+  // @@protoc_insertion_point(field_get:protocol.RequestMove.actorId)
+  return _internal_actorid();
+}
+inline void RequestMove::_internal_set_actorid(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  actorid_ = value;
+}
+inline void RequestMove::set_actorid(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_actorid(value);
+  // @@protoc_insertion_point(field_set:protocol.RequestMove.actorId)
+}
+
+// .protocol.PositionInfo posInfo = 2;
 inline bool RequestMove::_internal_has_posinfo() const {
   return this != internal_default_instance() && posinfo_ != nullptr;
 }
@@ -4599,7 +5539,27 @@ inline void RequestSkill::set_skillid(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   // @@protoc_insertion_point(field_set:protocol.RequestSkill.skillId)
 }
 
-// uint32 targetActorId = 2;
+// uint32 actorId = 2;
+inline void RequestSkill::clear_actorid() {
+  actorid_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 RequestSkill::_internal_actorid() const {
+  return actorid_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 RequestSkill::actorid() const {
+  // @@protoc_insertion_point(field_get:protocol.RequestSkill.actorId)
+  return _internal_actorid();
+}
+inline void RequestSkill::_internal_set_actorid(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  actorid_ = value;
+}
+inline void RequestSkill::set_actorid(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_actorid(value);
+  // @@protoc_insertion_point(field_set:protocol.RequestSkill.actorId)
+}
+
+// uint32 targetActorId = 3;
 inline void RequestSkill::clear_targetactorid() {
   targetactorid_ = 0u;
 }
@@ -4960,9 +5920,175 @@ inline void RequestViewportUpdate::set_playerid(::PROTOBUF_NAMESPACE_ID::uint32 
   // @@protoc_insertion_point(field_set:protocol.RequestViewportUpdate.playerId)
 }
 
+// -------------------------------------------------------------------
+
+// NotifyInitClient
+
+// uint32 serviceId = 1;
+inline void NotifyInitClient::clear_serviceid() {
+  serviceid_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 NotifyInitClient::_internal_serviceid() const {
+  return serviceid_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 NotifyInitClient::serviceid() const {
+  // @@protoc_insertion_point(field_get:protocol.NotifyInitClient.serviceId)
+  return _internal_serviceid();
+}
+inline void NotifyInitClient::_internal_set_serviceid(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  serviceid_ = value;
+}
+inline void NotifyInitClient::set_serviceid(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_serviceid(value);
+  // @@protoc_insertion_point(field_set:protocol.NotifyInitClient.serviceId)
+}
+
+// -------------------------------------------------------------------
+
+// RequestNpcSpawn
+
+// uint32 zoneId = 1;
+inline void RequestNpcSpawn::clear_zoneid() {
+  zoneid_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 RequestNpcSpawn::_internal_zoneid() const {
+  return zoneid_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 RequestNpcSpawn::zoneid() const {
+  // @@protoc_insertion_point(field_get:protocol.RequestNpcSpawn.zoneId)
+  return _internal_zoneid();
+}
+inline void RequestNpcSpawn::_internal_set_zoneid(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  zoneid_ = value;
+}
+inline void RequestNpcSpawn::set_zoneid(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_zoneid(value);
+  // @@protoc_insertion_point(field_set:protocol.RequestNpcSpawn.zoneId)
+}
+
+// repeated .protocol.NpcInfo npcBuf = 2;
+inline int RequestNpcSpawn::_internal_npcbuf_size() const {
+  return npcbuf_.size();
+}
+inline int RequestNpcSpawn::npcbuf_size() const {
+  return _internal_npcbuf_size();
+}
+inline void RequestNpcSpawn::clear_npcbuf() {
+  npcbuf_.Clear();
+}
+inline ::protocol::NpcInfo* RequestNpcSpawn::mutable_npcbuf(int index) {
+  // @@protoc_insertion_point(field_mutable:protocol.RequestNpcSpawn.npcBuf)
+  return npcbuf_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::protocol::NpcInfo >*
+RequestNpcSpawn::mutable_npcbuf() {
+  // @@protoc_insertion_point(field_mutable_list:protocol.RequestNpcSpawn.npcBuf)
+  return &npcbuf_;
+}
+inline const ::protocol::NpcInfo& RequestNpcSpawn::_internal_npcbuf(int index) const {
+  return npcbuf_.Get(index);
+}
+inline const ::protocol::NpcInfo& RequestNpcSpawn::npcbuf(int index) const {
+  // @@protoc_insertion_point(field_get:protocol.RequestNpcSpawn.npcBuf)
+  return _internal_npcbuf(index);
+}
+inline ::protocol::NpcInfo* RequestNpcSpawn::_internal_add_npcbuf() {
+  return npcbuf_.Add();
+}
+inline ::protocol::NpcInfo* RequestNpcSpawn::add_npcbuf() {
+  ::protocol::NpcInfo* _add = _internal_add_npcbuf();
+  // @@protoc_insertion_point(field_add:protocol.RequestNpcSpawn.npcBuf)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::protocol::NpcInfo >&
+RequestNpcSpawn::npcbuf() const {
+  // @@protoc_insertion_point(field_list:protocol.RequestNpcSpawn.npcBuf)
+  return npcbuf_;
+}
+
+// -------------------------------------------------------------------
+
+// ReturnNpcSpawn
+
+// repeated .protocol.NpcInfo npcBuf = 1;
+inline int ReturnNpcSpawn::_internal_npcbuf_size() const {
+  return npcbuf_.size();
+}
+inline int ReturnNpcSpawn::npcbuf_size() const {
+  return _internal_npcbuf_size();
+}
+inline void ReturnNpcSpawn::clear_npcbuf() {
+  npcbuf_.Clear();
+}
+inline ::protocol::NpcInfo* ReturnNpcSpawn::mutable_npcbuf(int index) {
+  // @@protoc_insertion_point(field_mutable:protocol.ReturnNpcSpawn.npcBuf)
+  return npcbuf_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::protocol::NpcInfo >*
+ReturnNpcSpawn::mutable_npcbuf() {
+  // @@protoc_insertion_point(field_mutable_list:protocol.ReturnNpcSpawn.npcBuf)
+  return &npcbuf_;
+}
+inline const ::protocol::NpcInfo& ReturnNpcSpawn::_internal_npcbuf(int index) const {
+  return npcbuf_.Get(index);
+}
+inline const ::protocol::NpcInfo& ReturnNpcSpawn::npcbuf(int index) const {
+  // @@protoc_insertion_point(field_get:protocol.ReturnNpcSpawn.npcBuf)
+  return _internal_npcbuf(index);
+}
+inline ::protocol::NpcInfo* ReturnNpcSpawn::_internal_add_npcbuf() {
+  return npcbuf_.Add();
+}
+inline ::protocol::NpcInfo* ReturnNpcSpawn::add_npcbuf() {
+  ::protocol::NpcInfo* _add = _internal_add_npcbuf();
+  // @@protoc_insertion_point(field_add:protocol.ReturnNpcSpawn.npcBuf)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::protocol::NpcInfo >&
+ReturnNpcSpawn::npcbuf() const {
+  // @@protoc_insertion_point(field_list:protocol.ReturnNpcSpawn.npcBuf)
+  return npcbuf_;
+}
+
+// -------------------------------------------------------------------
+
+// NotifyWorldTick
+
+// uint32 CurrTimeStamp = 1;
+inline void NotifyWorldTick::clear_currtimestamp() {
+  currtimestamp_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 NotifyWorldTick::_internal_currtimestamp() const {
+  return currtimestamp_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 NotifyWorldTick::currtimestamp() const {
+  // @@protoc_insertion_point(field_get:protocol.NotifyWorldTick.CurrTimeStamp)
+  return _internal_currtimestamp();
+}
+inline void NotifyWorldTick::_internal_set_currtimestamp(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  currtimestamp_ = value;
+}
+inline void NotifyWorldTick::set_currtimestamp(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_currtimestamp(value);
+  // @@protoc_insertion_point(field_set:protocol.NotifyWorldTick.CurrTimeStamp)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

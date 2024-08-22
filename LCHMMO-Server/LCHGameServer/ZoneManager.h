@@ -40,6 +40,8 @@ private:
 	TimeStampType CurrTimeStamp = ZERO_TIMESTAMP;
 	TimeStampType NextTimeStampForZoneUpdate = ZERO_TIMESTAMP;
 	TimeStampType NextTimeStampForPlayerViewportUpdate = ZERO_TIMESTAMP;
+
+	int64 NpcTickTime = 0;
 };
 
 extern ZoneManager GZoneManager;

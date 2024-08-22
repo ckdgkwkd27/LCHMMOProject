@@ -9,7 +9,6 @@ public class MyPlayerController : PlayerController
     MonsterController targetActor = null;
     public const float MeleeDistance = 5.0f;
 
-
     protected override void Init()
     {
         base.Init();
@@ -46,9 +45,12 @@ public class MyPlayerController : PlayerController
         {
             MovePacketSendTimer = MOVE_PACKET_SEND_DELAY;
             Protocol.RequestMove movePacket = new Protocol.RequestMove();
+            movePacket.ActorId = Id;
             movePacket.PosInfo = PosInfo;
             Managers.Network.Send(movePacket);
         }
+
+        DesiredInput = Vector2.zero;
     }
 
     protected override void UpdateController()
@@ -70,7 +72,7 @@ public class MyPlayerController : PlayerController
 
     protected override void UpdateIdle()
     {
-        if(_moveKeyPressed)
+        if (_moveKeyPressed)
         {
             State = CreatureState.MOVING;
             _moveUpdateReserved = true;
@@ -116,6 +118,26 @@ public class MyPlayerController : PlayerController
         //cache
         DesiredInput = destPos;
         _moveUpdateReserved = false;
+
+        if(Input.GetKey(KeyCode.Space))
+        {
+            if (_coSkillCooltime == null)
+            {
+                if (targetActor == null)
+                    return;
+
+                if (Vector3.Distance(transform.position, targetActor.transform.position) > MeleeDistance)
+                    return;
+
+                Protocol.RequestSkill skillPacket = new Protocol.RequestSkill();
+                skillPacket.SkillId = 2;
+                skillPacket.TargetActorId = targetActor.Id;
+                Managers.Network.Send(skillPacket);
+                Debug.Log("Send Skill");
+
+                _coSkillCooltime = StartCoroutine("CoInputCooltime", 0.2f);
+            }
+        }
     }
 
     Coroutine _coSkillCooltime;
