@@ -18,7 +18,6 @@ Monster::Monster()
 	RoamRadius = 2;
 }
 
-// #TODO: 07/31 Move Broadcast를 하는것을 잘 만들어보자
 void Monster::Update()
 {
 	switch ((MoveState)ActorInfo.mutable_objects()->posinfo().state())
@@ -137,7 +136,6 @@ void Monster::UpdateChasing()
 		return;
 	}
 
-	//08.08 여기서 false가 나서 Chase 끝남. 분석해볼것
 	if (_map->ApplyMove(shared_from_this(), path[1]) == false)
 	{
 		SetMoveState(MoveState::MOVING);

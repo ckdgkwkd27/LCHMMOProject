@@ -84,7 +84,6 @@ bool Handle_PKT_SC_SPAWN(WorldSessionPtr& session, protocol::NotifySpawn& packet
 
 bool Handle_PKT_SC_MOVE(WorldSessionPtr& session, protocol::ReturnMove& packet)
 {
-	//08.17 => 이 함수를 클라이언트에서 디버깅 해보자!
 	uint32 actorId = packet.actorid();
 	auto it = GActorManager.ActorIDToActorHashMap.find(actorId);
 	if (it == GActorManager.ActorIDToActorHashMap.end())
